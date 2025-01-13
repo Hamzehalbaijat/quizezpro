@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Results</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="results.css" />
+    <link rel="stylesheet" href="musabHome.css" />
+  </head>
+  <body>
+    <head>
+      <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img
+              src="res/LogoQuizziz.png"
+              alt="Logo"
+              width=".3rem"
+              class="d-inline-block align-text-top"
+            />
+          </a>
+
+          
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">#
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+          <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <ul class="nav-links">
+                  <li><a class="headLinks" href="musabHome.html">Home</a></li>
+                  <li><a class="headLinks" href="#quizzes">Quizzes</a></li>
+                  <li><a class="headLinks" href="#quizzes">Tutorials</a></li>
+                  <li><a class="headLinks" href="#contact">Contact Us</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <!-- <button id="authButton" type="button"></button> -->
+            </form>
+          </div>
+        </div>
+      </nav>
+    </head>
+
+    <div class="results-container">
+      <div class="results-summary">
+        <img id="result-image" width="300px" alt="" />
+        <h2>Your result: <span class="highlight">4 of 5 Points (80%)</span></h2>
+        <p>Status: <span class="status passed">PASSED</span></p>
+        <p id="congratulations-message">
+          Congratulations, you’ve successfully passed the test!
+        </p>
+      </div>
+      <div class="actions">
+        <button id="show-results-Buttons" class="Buttons">SHOW RESULT</button>
+        <button id="Try-again" class="Buttons" style="display: none">
+          Try Again
+        </button>
+        <button id="go-home-btn" class="Buttons">HOME</button>
+      </div>
+
+      <table id="questions-table" class="questions-table" style="display: none">
+        <tbody>
+          <!--  questions  -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="results.js"></script>
+
+    <script>
+      function checkUserAccess() {
+        if (sessionStorage.getItem("user") !== "true") {
+          alert("please log in");
+          window.location.href = "login.html";
+        }
+      }
+
+      //---------------
+
+      function updateAuthButton() {
+        const authButton = document.getElementById("authButton");
+
+        if (!authButton) {
+          console.error("Auth button element not found.");
+          return; // اخرج إذا كان الزر غير موجود
+        }
+
+        // التحقق من حالة تسجيل الدخول
+        const isLoggedIn = sessionStorage.getItem("user") === "true";
+
+        if (isLoggedIn) {
+          authButton.textContent = "Logout"; // إذا كان المستخدم مسجل دخول
+          authButton.onclick = () => {
+            sessionStorage.setItem("user", "false"); // تحديث الحالة إلى غير مسجل
+            window.location.reload(); // إعادة تحميل الصفحة
+          };
+        } else {
+          authButton.textContent = "Login"; // إذا كان المستخدم غير مسجل دخول
+          authButton.onclick = () => {
+            sessionStorage.setItem("user", "true"); // مثال: تغيير الحالة (للتجربة)
+            window.location.href = "login.html"; // إعادة توجيه إلى صفحة تسجيل الدخول
+          };
+        }
+      }
+
+      // استدعاء الوظيفة عند تحميل الصفحة
+      document.addEventListener("DOMContentLoaded", () => {
+        updateAuthButton();
+      });
+    </script>
+
+    <script src="loginjs.js"></script>
+  </body>
+</html>
